@@ -38,8 +38,18 @@ namespace Heroes.API
                 });
             });
             services.AddControllers();
-            services.AddDbContext<HeroesContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("DockerDB")));
+            // Use SQL Database if in Azure, otherwise, use SQLite
+            if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+                services.AddDbContext<HeroesContext>(options =>
+                    options.UseSqlServer(
+                        Configuration.GetConnectionString("MyDbConnection")));
+            else
+                services.AddDbContext<HeroesContext>(options =>
+                    options.UseSqlServer(
+                        Configuration.GetConnectionString("DockerDB")));
+
+            // services.AddDbContext<HeroesContext>(options =>
+            //         options.UseSqlServer(Configuration.GetConnectionString("DockerDB")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
