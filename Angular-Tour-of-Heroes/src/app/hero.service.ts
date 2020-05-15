@@ -15,7 +15,7 @@ import { tokenReference } from '@angular/compiler';
 export class HeroService {
 
 
-  private heroesUrl = 'http://localhost:5000/api/Heroes'; // URL to web api
+  private heroesUrl = 'https://lemanhducapp.azurewebsites.net/api/Heroes'; // URL to web api
 
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
